@@ -1,7 +1,7 @@
 import connection from '../databases/postgres.js';
-import userSchema from '../schemas/userSchema.js';
+import userSchema from '../schemas/signUpSchema.js';
 
-async function ValidateNewUser(request, response, next) {
+async function signUpMiddleware(request, response, next) {
   const newUser = request.body;
 
   const validate = userSchema.validate(newUser, { abortEarly: false });
@@ -13,14 +13,12 @@ async function ValidateNewUser(request, response, next) {
   }
 
   try {
-    const { rows: responseTableUsers } = await connection.query(
+    const { rows: isUserRegistered } = await connection.query(
       `SELECT * FROM users WHERE email = $1;`,
       [newUser.email]
     );
 
-    const isUserRegistered = responseTableUsers.length > 0 ? true : false;
-
-    if (isUserRegistered) return response.sendStatus(409);
+    if (isUserRegistered[0]) return response.sendStatus(409);
 
     next();
   } catch {
@@ -28,4 +26,4 @@ async function ValidateNewUser(request, response, next) {
   }
 }
 
-export default ValidateNewUser;
+export default signUpMiddleware;
