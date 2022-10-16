@@ -1,13 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import chalk from 'chalk';
-import signUpRoutes from '../src/routes/signUpRoutes.js';
+import publicRoutes from './routes/publicRoutes.js';
 const server = express();
 
-server.use(cors());
-server.use(express.json());
-
-server.use(signUpRoutes);
+server.use([express.json(), cors(), publicRoutes]);
 
 const PORT = process.env.PORT || 5000;
 

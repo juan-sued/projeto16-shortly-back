@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import connection from '../databases/postgres.js';
 
-export async function registerUser(request, response) {
+const signUpController = async (request, response) => {
   const { name, email, password } = request.body;
 
   const encryptedPassword = bcrypt.hashSync(password, 10);
@@ -16,4 +16,6 @@ export async function registerUser(request, response) {
   } catch {
     return response.status(500).send('erro ao inserir Users');
   }
-}
+};
+
+export default signUpController;
