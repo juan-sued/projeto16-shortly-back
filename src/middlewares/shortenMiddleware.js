@@ -1,12 +1,13 @@
 import { nanoid } from 'nanoid';
-import shortenURLSchema from '../schemas/shortenURLSchema';
-import decodedToken from '../services/jwtToken.js';
+import shortenURLSchema from '../schemas/shortenURLSchema.js';
+import { decodedToken } from '../services/jwtToken.js';
 const shortenMiddleware = async (request, response, next) => {
-  const { url } = request.body;
+  const url = request.body;
+  console.log(request.header('Authorization')?.split('Baerer ')[1]);
 
   const TOKEN = request.header('Authorization')?.split('Baerer ')[1];
 
-  const validate = shortenURLSchema.validate(userData, { abortEarly: false });
+  const validate = shortenURLSchema.validate(url, { abortEarly: false });
   const { error } = validate;
 
   if (error) {
@@ -25,3 +26,5 @@ const shortenMiddleware = async (request, response, next) => {
     return response.status(500).send('erro ao validar user');
   }
 };
+
+export default shortenMiddleware;

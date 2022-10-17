@@ -9,7 +9,7 @@ const createToken = payload => {
   return jwt.sign(payload, SECRET, { expiresIn: EXPIRED_TIME });
 };
 
-const decodeToken = token => {
+const decodedToken = token => {
   try {
     const decoded = jwt.verify(token, SECRET);
     return decoded;
@@ -18,4 +18,4 @@ const decodeToken = token => {
   }
 };
 
-export { createToken, decodeToken };
+export { createToken, decodedToken };
