@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import getUrlByIdController from '../controllers/getUrlByIdController.js';
+
 import goToShortUrlController from '../controllers/goToShortUrlController.js';
 
 import signInController from '../controllers/signInController.js';
