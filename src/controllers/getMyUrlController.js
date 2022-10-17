@@ -1,4 +1,4 @@
-import connection from '../database/postgressSQL.js';
+import connection from '../databases/postgres.js';
 
 const getMyUrlsController = async (request, response) => {
   const { userData } = response.locals;
@@ -17,7 +17,7 @@ const getMyUrlsController = async (request, response) => {
       shortenedUrls
     };
 
-    response.send(userObject);
+    response.status(200).send(userObject);
   } catch {
     return response.sendStatus(500);
   }
