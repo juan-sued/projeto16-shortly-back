@@ -1,4 +1,4 @@
-import connection from '../databases/postgres';
+import connection from '../databases/postgres.js';
 
 const goToShortUrlController = async (req, res) => {
   const { url } = response.locals;
