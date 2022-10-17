@@ -1,4 +1,4 @@
-import connection from '../databases/postgres';
+import connection from '../databases/postgres.js';
 
 const goToShortUrlMiddleware = async (request, response, next) => {
   const { shortUrl } = request.params;
