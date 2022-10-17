@@ -1,16 +1,16 @@
-import connection from '../database/postgres.js';
+import connection from '../databases/postgres.js';
 
-const shortenURLController = async (req, res) => {
-  const { shortenData } = res.locals;
+const shortenURLController = async (request, response) => {
+  const { shortenData } = response.locals;
   try {
     await connection.query('INSERT INTO links(user_id,url,short_url) values($1,$2,$3)', [
       shortenData.userId,
       shortenData.url,
       shortenData.shortURL
     ]);
-    res.status(201).json({ shortURL: shortenData.shortURL });
-  } catch (err) {
-    res.status(500).send('Houve um erro interno ao criar a URL');
+    response.status(201).json({ shortURL: shortenData.shortURL });
+  } catch {
+    response.status(500).send('Houve um erro interno ao criar a URL');
   }
 };
 export default shortenURLController;
