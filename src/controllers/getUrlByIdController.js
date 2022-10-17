@@ -1,21 +1,10 @@
-import connection from '../databases/postgres.js';
-
-const getUrlById = async (request, response) => {
-  const { id } = request.params;
-
-  if (isNaN(id)) return response.status(422).send('Digite um valor numérico!');
-
+const getUrlByIdController = async (request, response) => {
+  const { urlObject } = response.locals;
   try {
-    const { rows: url } = await connection.query('SELECT * FROM links WHERE id = $1', [
-      id
-    ]);
-
-    if (!url[0]) return response.sendStatus(404);
-
     const dataURL = {
-      id: url[0],
-      shortURL: url[0].short_url,
-      url: url[0].url
+      id: urlObject[0],
+      shortURL: urlObject[0].short_url,
+      url: urlObject[0].url
     };
 
     response.send(dataURL);
@@ -24,4 +13,4 @@ const getUrlById = async (request, response) => {
   }
 };
 
-export default getUrlById;
+export default getUrlByIdController;
