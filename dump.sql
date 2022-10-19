@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.12 (Ubuntu 12.12-0ubuntu0.20.04.1)
--- Dumped by pg_dump version 12.12 (Ubuntu 12.12-0ubuntu0.20.04.1)
+-- Dumped from database version 14.3
+-- Dumped by pg_dump version 14.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -21,7 +21,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: links; Type: TABLE; Schema: public; Owner: -
+-- Name: links; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.links (
@@ -34,8 +34,10 @@ CREATE TABLE public.links (
 );
 
 
+ALTER TABLE public.links OWNER TO postgres;
+
 --
--- Name: links_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: links_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.links_id_seq
@@ -47,27 +49,31 @@ CREATE SEQUENCE public.links_id_seq
     CACHE 1;
 
 
+ALTER TABLE public.links_id_seq OWNER TO postgres;
+
 --
--- Name: links_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: links_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.links_id_seq OWNED BY public.links.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.users (
     id integer NOT NULL,
-    name text,
-    email character varying(100),
-    password text
+    name character varying(30) NOT NULL,
+    email text NOT NULL,
+    password text NOT NULL
 );
 
 
+ALTER TABLE public.users OWNER TO postgres;
+
 --
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.users_id_seq
@@ -79,67 +85,65 @@ CREATE SEQUENCE public.users_id_seq
     CACHE 1;
 
 
+ALTER TABLE public.users_id_seq OWNER TO postgres;
+
 --
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: links id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: links id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.links ALTER COLUMN id SET DEFAULT nextval('public.links_id_seq'::regclass);
 
 
 --
--- Name: users id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
--- Data for Name: links; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: links; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.links VALUES (7, 6, '{"url":"https://ronaldinhogauchoteste.com.br"}', '2LgpYmaBB2', 0, '2022-10-16 22:17:34.444098');
-INSERT INTO public.links VALUES (15, 6, '{"url":"https://ronaldinhogauchoteste.com.br"}', 'KLySSi41A3', 0, '2022-10-18 17:19:22.359574');
-INSERT INTO public.links VALUES (16, 6, '{"url":"https://ronaldinhogauchoteste.com.br"}', '82cRBgBrmn', 0, '2022-10-18 17:31:32.526659');
-
-
---
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO public.users VALUES (1, 'João', 'joao@driven.com.br', '$2b$10$nWFCuIf.XkqsZfdvtVHV..Yq37NRRUaRiPJ8Thx3c1EA16WkfRVZ6');
-INSERT INTO public.users VALUES (2, 'João', 'joao2@driven.com.br', '$2b$10$NvCTb.Lal3rpodJAuJLsU.gMvir6VucBRIcKiAF8EW38RJY63Yf.m');
-INSERT INTO public.users VALUES (3, 'João', 'joao2@driven.com.br', '$2b$10$xHsxNFMiie2sw2pTlJU7dOAz.BDQm0XxD36vOyA6uqQlkN9Uvb9..');
-INSERT INTO public.users VALUES (4, 'João', 'joao2@driven.com.br', '$2b$10$k4/5.ImZozzDBpAGfhvaa.uEmTcO/h0T1U2yAC.9ZCEbBGjafrn9S');
-INSERT INTO public.users VALUES (5, 'João', 'joao2@driven.com.br', '$2b$10$PN6/xIotuulvK18wM3k9yuwt8ZagDhNFjXggQ4rGgKuv6HJ0EaIgm');
-INSERT INTO public.users VALUES (6, 'João', 'joao3@driven.com.br', '$2b$10$xMVXBGOJJ0pHaFnLuAyq5e2yLK.uqwAA4JyYese1WHjoZ6S7WaQuq');
-INSERT INTO public.users VALUES (7, 'João', 'joao4@driven.com.br', '$2b$10$yVTivPdX39HcaBD5kyClC.7tbyXxGZPB.YoX5zD6ZQZn08JqIKNG2');
-INSERT INTO public.users VALUES (8, 'João', 'joao5@driven.com.br', '$2b$10$zfGJXfgB8uKDQDwsVCUJA.tptXgpRyLbnbAXKJfE/Ohw5Xy7KF8r6');
-INSERT INTO public.users VALUES (9, 'João', 'joao6@driven.com.br', '$2b$10$5fBbySjmIgLTAz5/BooMtO05A/JBuusR5kdIrAwxUIa9J0KSioM92');
+COPY public.links (id, user_id, url, short_url, views, created_at) FROM stdin;
+6	1	https://teste.com	w3LNPdf00I	2	2022-08-04 18:27:32.128722
+5	1	https://teste.com	XzuScAJZDd	4	2022-08-04 18:27:29.703938
+\.
 
 
 --
--- Name: links_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.links_id_seq', 16, true);
-
-
---
--- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public.users_id_seq', 9, true);
+COPY public.users (id, name, email, password) FROM stdin;
+1	teste	teste@gmail.com	$2b$10$KOn65YfC7RkQXKfNNoAQbOrwjUe8l7mfWT8kNKd37q1cr6dOi18Iq
+3	teste	teste1@gmail.com	$2b$10$ZA1eOLsDHenWjs6Jr54VVeHZ52RD6bJlmcgiNTKG4cqGkDQfSYfAm
+\.
 
 
 --
--- Name: links links_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: links_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.links_id_seq', 6, true);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 3, true);
+
+
+--
+-- Name: links links_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.links
@@ -147,7 +151,7 @@ ALTER TABLE ONLY public.links
 
 
 --
--- Name: links links_short_url_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: links links_short_url_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.links
@@ -155,11 +159,27 @@ ALTER TABLE ONLY public.links
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_key UNIQUE (email);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: links links_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.links
+    ADD CONSTRAINT links_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
