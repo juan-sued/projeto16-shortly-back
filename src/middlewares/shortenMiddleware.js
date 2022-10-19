@@ -3,9 +3,8 @@ import shortenURLSchema from '../schemas/shortenURLSchema.js';
 import { decodedToken } from '../services/jwtToken.js';
 const shortenMiddleware = async (request, response, next) => {
   const url = request.body;
-  console.log(request.header('Authorization')?.split('Baerer ')[1]);
 
-  const TOKEN = request.header('Authorization')?.split('Baerer ')[1];
+  const TOKEN = request.header('Authorization')?.split('Bearer ')[1];
 
   const validate = shortenURLSchema.validate(url, { abortEarly: false });
   const { error } = validate;
@@ -20,7 +19,7 @@ const shortenMiddleware = async (request, response, next) => {
 
     if (!decoded) return response.status(401).send('Token Inválido');
 
-    response.locals.shortenData = { userId: decoded.id, url, shortURL: nanoid(10) };
+    response.locals.shortenData = { userId: decoded.id, url, shortUrl: nanoid(10) };
     next();
   } catch {
     return response.status(500).send('erro ao validar user');

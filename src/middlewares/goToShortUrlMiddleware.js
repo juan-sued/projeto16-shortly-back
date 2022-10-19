@@ -2,6 +2,7 @@ import connection from '../databases/postgres.js';
 
 const goToShortUrlMiddleware = async (request, response, next) => {
   const { shortUrl } = request.params;
+
   try {
     const QUERY = `
     SELECT l.views, l.url
@@ -11,6 +12,7 @@ const goToShortUrlMiddleware = async (request, response, next) => {
     AND l.short_url = $1`;
 
     const { rows: url } = await connection.query(QUERY, [shortUrl]);
+
     if (!url[0]) return response.sendStatus(404);
     response.locals.url = url;
     next();
