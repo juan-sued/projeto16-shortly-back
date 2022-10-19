@@ -5,7 +5,7 @@ const getMyUrlsController = async (request, response) => {
   try {
     const QUERY = `
     SELECT l.id, l.short_url as "shortUrl" ,l.url ,l.views as "visitCount"
-    FROM links l where l.user_id = $1
+    FROM links l where l.user_id = $1;
     `;
     const { rows: shortenedUrls } = await connection.query(QUERY, [userData.myId]);
 

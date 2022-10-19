@@ -11,7 +11,7 @@ const signInController = async (request, response) => {
     });
     const userDataResponse = {
       name: user[0].name,
-      token: `Baerer ${token}`
+      token: `Bearer ${token}`
     };
 
     response.status(200).send(userDataResponse);

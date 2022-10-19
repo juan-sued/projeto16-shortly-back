@@ -1,5 +1,5 @@
 import { decodedToken } from '../services/jwtToken.js';
-
+import connection from '../databases/postgres.js';
 const deleteShortenUrlMiddleware = async (request, response, next) => {
   const { id } = request.params;
   if (isNaN(id)) {
@@ -13,12 +13,12 @@ const deleteShortenUrlMiddleware = async (request, response, next) => {
 
   try {
     const { rows: url } = await connection.query('SELECT * FROM links where id= $1', [
-      deleteShortenData.urlId
+      id
     ]);
 
     if (!url[0]) return response.sendStatus(404);
 
-    if (url[0].user_id !== deleteShortenData.userId) return response.sendStatus(401);
+    if (url[0].user_id !== decoded.id) return response.sendStatus(401);
 
     response.locals.deleteShortenData = { userId: decoded.id, urlId: id };
     next();

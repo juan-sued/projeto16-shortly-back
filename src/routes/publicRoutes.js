@@ -16,6 +16,6 @@ const router = Router();
 router.post('/signup', signUpMiddleware, signUpController);
 router.post('/signin', signInMiddleware, signInController);
 router.get('/urls/:id', getURLByIdMiddleware, getUrlByIdController);
-router.get('urls/open/:shortUrl', goToShortUrlMiddleware, goToShortUrlController);
+router.get('/urls/open/:shortUrl', goToShortUrlMiddleware, goToShortUrlController);
 router.get('/ranking', getRanksController);
 export default router;
