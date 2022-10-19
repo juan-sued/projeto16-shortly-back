@@ -2,7 +2,8 @@ const STATUS_CODE = Object.freeze({
   OK: 200,
   CREATED: 201,
   BAD_REQUEST: 400,
-  SERVER_ERROR: 500
+  SERVER_ERROR: 500,
+  UNPROCESSABLE_ENTITY: 422
 });
 const STATUS_TEXT = Object.freeze({
   CREATED: 'created',
@@ -25,5 +26,14 @@ function okResponse(response, text = STATUS_TEXT.OK) {
 function serverErrorResponse(response, error) {
   return response.status(STATUS_CODE.SERVER_ERROR).send('Erro interno do servidor!');
 }
+function validateSchemaResponse(response, errors) {
+  return response.status(STATUS_CODE.UNPROCESSABLE_ENTITY).send(errors);
+}
 
-export { badRequestResponse, createdResponse, okResponse, serverErrorResponse };
+export {
+  badRequestResponse,
+  createdResponse,
+  okResponse,
+  serverErrorResponse,
+  validateSchemaResponse
+};
